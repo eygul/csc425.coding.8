@@ -1,0 +1,128 @@
+/*********************************************
+Your name: Eren Gul
+Question 2: 
+here is my output for the command "free -m":
+               total        used        free      shared  buff/cache   available
+Mem:            7821        2554        1579         397        3686        4572
+Swap:           2047           0        2047
+
+From this, I can see that my system almost has 8gb (7821mb) of RAM, and is using 2554 mb of it.
+
+Question 4: 
+Here is my memory usage before I run the program:
+               total        used        free      shared  buff/cache   available
+Mem:            7821        2578        1538         414        3704        4531
+Swap:           2047           0        2047
+
+Here is my memory usage while I run the program with an input of 1000 mb:
+               total        used        free      shared  buff/cache   available
+Mem:            7821        3571         541         418        3708        3534
+Swap:           2047           0        2047
+
+Here is my memory usage when I stop running the program:
+               total        used        free      shared  buff/cache   available
+Mem:            7821        2570        1541         418        3708        4534
+Swap:           2047           0        2047
+
+From these results, we can see that my system is using ~1000mb more RAM while my program is running, and it goes back to its previous value when the program stops being run.
+
+Question 6:
+My biggest 3 challenges were: 
+- Figuring out the design of the program, like knowing where to start and how to implement it, due to the fact that I have not written a program in C before). 
+- Converting the command line argument of the memory amount from a string to an integer and using the malloc() function with it. 
+- And creating an infinite loop where the program always keep writing to the bytes in the allocated memory in an infinite loop to keep the program active. 
+
+Question 7: 
+I ran the pmap command with the -X flag using the process id from my memory-user.c program that I retrieved using the getpid() function within my program.
+The output from that command was way too big, displaying a lot of data. However, I was able to see that many components make up a modern address space, including the following that I was able to see from the output of the command:  Address Perm   Offset Device   Inode    Size     Rss     Pss Pss_Dirty Referenced Anonymous KSM LazyFree ShmemPmdMapped FilePmdMapped Shared_Hugetlb Private_Hugetlb Swap SwapPss Locked THPeligible Mapping
+That is 21 different components, as opposed to our simple conception of code/stack/heap.
+
+Question 8: 
+Result from running the memory-user.c with 1000 mb:
+38304:   ./memory-user 1000
+0000618e7ae71000      4K r---- memory-user
+0000618e7ae72000      4K r-x-- memory-user
+0000618e7ae73000      4K r---- memory-user
+0000618e7ae74000      4K r---- memory-user
+0000618e7ae75000      4K rw--- memory-user
+0000618e7ca56000    132K rw---   [ anon ]
+00007d5181400000 1024004K rw---   [ anon ]
+00007d51bfe00000    160K r---- libc.so.6
+00007d51bfe28000   1620K r-x-- libc.so.6
+00007d51bffbd000    352K r---- libc.so.6
+00007d51c0015000      4K ----- libc.so.6
+00007d51c0016000     16K r---- libc.so.6
+00007d51c001a000      8K rw--- libc.so.6
+00007d51c001c000     52K rw---   [ anon ]
+00007d51c0151000     12K rw---   [ anon ]
+00007d51c0165000      8K rw---   [ anon ]
+00007d51c0167000      8K r---- ld-linux-x86-64.so.2
+00007d51c0169000    168K r-x-- ld-linux-x86-64.so.2
+00007d51c0193000     44K r---- ld-linux-x86-64.so.2
+00007d51c019f000      8K r---- ld-linux-x86-64.so.2
+00007d51c01a1000      8K rw--- ld-linux-x86-64.so.2
+00007ffd17b37000    132K rw---   [ stack ]
+00007ffd17ba2000     16K r----   [ anon ]
+00007ffd17ba6000      8K r-x--   [ anon ]
+ffffffffff600000      4K --x--   [ anon ]
+ total          1026784K
+
+Result from running it with 100mb:
+38796:   ./memory-user 100
+000060e7b0194000      4K r---- memory-user
+000060e7b0195000      4K r-x-- memory-user
+000060e7b0196000      4K r---- memory-user
+000060e7b0197000      4K r---- memory-user
+000060e7b0198000      4K rw--- memory-user
+000060e7b04ed000    132K rw---   [ anon ]
+000070a23de00000 102404K rw---   [ anon ]
+000070a244400000    160K r---- libc.so.6
+000070a244428000   1620K r-x-- libc.so.6
+000070a2445bd000    352K r---- libc.so.6
+000070a244615000      4K ----- libc.so.6
+000070a244616000     16K r---- libc.so.6
+000070a24461a000      8K rw--- libc.so.6
+000070a24461c000     52K rw---   [ anon ]
+000070a2446f8000     12K rw---   [ anon ]
+000070a24470c000      8K rw---   [ anon ]
+000070a24470e000      8K r---- ld-linux-x86-64.so.2
+000070a244710000    168K r-x-- ld-linux-x86-64.so.2
+000070a24473a000     44K r---- ld-linux-x86-64.so.2
+000070a244746000      8K r---- ld-linux-x86-64.so.2
+000070a244748000      8K rw--- ld-linux-x86-64.so.2
+00007ffce9782000    132K rw---   [ stack ]
+00007ffce97ea000     16K r----   [ anon ]
+00007ffce97ee000      8K r-x--   [ anon ]
+ffffffffff600000      4K --x--   [ anon ]
+ total           105184K
+
+Result from running it with 4000gb:
+38808:   ./memory-user 4000
+00006037c1e3e000      4K r---- memory-user
+00006037c1e3f000      4K r-x-- memory-user
+00006037c1e40000      4K r---- memory-user
+00006037c1e41000      4K r---- memory-user
+00006037c1e42000      4K rw--- memory-user
+00006037c253f000    132K rw---   [ anon ]
+00007e0e5fc00000 4096004K rw---   [ anon ]
+00007e0f59e00000    160K r---- libc.so.6
+00007e0f59e28000   1620K r-x-- libc.so.6
+00007e0f59fbd000    352K r---- libc.so.6
+00007e0f5a015000      4K ----- libc.so.6
+00007e0f5a016000     16K r---- libc.so.6
+00007e0f5a01a000      8K rw--- libc.so.6
+00007e0f5a01c000     52K rw---   [ anon ]
+00007e0f5a102000     12K rw---   [ anon ]
+00007e0f5a116000      8K rw---   [ anon ]
+00007e0f5a118000      8K r---- ld-linux-x86-64.so.2
+00007e0f5a11a000    168K r-x-- ld-linux-x86-64.so.2
+00007e0f5a144000     44K r---- ld-linux-x86-64.so.2
+00007e0f5a150000      8K r---- ld-linux-x86-64.so.2
+00007e0f5a152000      8K rw--- ld-linux-x86-64.so.2
+00007fff30230000    132K rw---   [ stack ]
+00007fff3028c000     16K r----   [ anon ]
+00007fff30290000      8K r-x--   [ anon ]
+ffffffffff600000      4K --x--   [ anon ]
+ total          4098784K
+
+As we can see, especially the total number and the second [anon] value from the top change based on the input size of my program.

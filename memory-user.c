@@ -3,6 +3,7 @@
 #include <unistd.h>
 
 int main(int argc, char *argv[]) {
+    printf("pid: %d\n", getpid());
     if (argc != 2) {
         printf("Usage: %s <memory_in_MB>\n", argv[0]);
         return 1;
